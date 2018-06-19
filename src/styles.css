@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+agm-map {
+    height: 500px;
+}
+
+#cabecera {
+    background-color: #BC252C !important;
+}
+
+.cursor {
+    cursor: pointer;
+}
