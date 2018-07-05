@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AutobusesService } from '../../services/autobuses.service';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import * as firebase from 'Firebase';
 import { TiemposService } from '../../services/tiempos.service';
 
 @Component({
@@ -10,6 +8,12 @@ import { TiemposService } from '../../services/tiempos.service';
   templateUrl: './inicio.component.html'
 })
 export class InicioComponent implements OnInit {
+  latitudTaller = 20.945457;
+  longitudTaller = -89.658255;
+  radioTaller = 220;
+  datos = {};
+  datosMark = {};
+
 
   lat: number;
   lng: number;
@@ -27,12 +31,11 @@ export class InicioComponent implements OnInit {
               public _ts: TiemposService ) {
                 // al ejecutar el metodo en el contructor este se ejecuta cuando la pagina se carga
               this.datosAutbus();
+              // this._ts.getDistancia(this.latitud, this.longitud, this.lat1, this.lng1, this.radio);
+              // this._ts.obtenerDistancia(this.itemsRef, this.latitudTaller, this.longitudTaller);
             }
 
   ngOnInit() {
-    setTimeout(() => {
-      this.ejecutar();
-    }, 2000);
   }
 
 // en este metodo revisamos los cambios que ocurren en tiempo real, en la base de datos
@@ -44,6 +47,11 @@ export class InicioComponent implements OnInit {
               this.itemsRef.forEach(data => {
                 // almacenamos los datos de cada autobus almacenado en la base de datos
                 this.autobuses = data;
+
+                for (let index = 0; index < this.autobuses.length; index++) {
+                  // this._ts.ejecuta(this.autobuses);
+                }
+                this._ts.obtenerDistancia(this.autobuses, this.latitudTaller, this.longitudTaller, this.radioTaller);
                 // si la variable init es falsa, obtenemos los datos del primer autobus
                 // con el indice cero y cambiamos el valor de init a true
                 if ( !this.init ) {
@@ -80,17 +88,7 @@ export class InicioComponent implements OnInit {
     this.siguiendoA = null;
   }
 
-  ejecutar() {
-    console.log('latitud despues del foreach', this.lat);
-    if ( this.lat === 20.8742161 ) {
-      this.variable = true;
-      this._ts.incrementarContador(this.variable);
-      } else {
-        this.variable = false;
-        this._ts.getHoraSalida( this.variable );
-      }
 
-  }
 }
 // creamos la interface de autobus, este debe contener las variables que están en la base de datos
 // de no cumplir con ese mismo numero de variables, marca error

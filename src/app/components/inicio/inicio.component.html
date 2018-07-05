@@ -7,7 +7,16 @@
         <!-- this creates a google map on the page with the given lat/lng from -->
         <!-- the component as the initial center of the map: -->
         <agm-map [latitude]="lat" [longitude]="lng" [zoom]="20" [mapTypeId]="'hybrid'">
-            <agm-marker *ngFor="let autobus of autobuses" [latitude]="autobus.lat" [longitude]="autobus.lng"></agm-marker>
+            <agm-marker *ngFor="let autobus of autobuses" [latitude]="autobus.lat" [longitude]="autobus.lng" label="{{autobus.id}}"></agm-marker>
+            <!-- _<agm-polygon [fillColor]="'#FFFFFF'" [visible]="true" fillOpacity="0.1" [paths]="pathTaller" [strokeColor]="'#FFFFFF'"></agm-polygon>
+            <agm-polygon [fillColor]="'#ffff00'" fillOpacity="0.1" [visible]="true" [paths]="pathRecepcion" [strokeColor]="'#ffff00'"></agm-polygon>
+            <agm-polygon [fillColor]="'#26df1f'" fillOpacity="0.1" [visible]="true" [paths]="pathIsla" [strokeColor]="'#26df1f'"></agm-polygon>
+            <agm-polygon [fillColor]="'#1f1fdf'" fillOpacity="0.1" [visible]="true" [paths]="pathListos" [strokeColor]="'#1f1fdf'"></agm-polygon>
+            <agm-polygon [fillColor]="'#000000'" fillOpacity="0.1" [visible]="true" [paths]="pathPre" [strokeColor]="'#000000'"></agm-polygon>
+            <agm-polygon [fillColor]="'#F6B23D'" fillOpacity="0.1" [visible]="true" [paths]="pathDetallado" [strokeColor]="'#F6B23D'"></agm-polygon>
+            <agm-polygon [fillColor]="'#e99ced'" fillOpacity="0.1" [visible]="true" [paths]="pathImg" [strokeColor]="'#e99ced'"></agm-polygon> -->
+            <agm-circle [latitude]="latitudTaller" [longitude]="longitudTaller" [radius]="radioTaller"></agm-circle>
+
         </agm-map>
     </div>
     <div class="col-4">

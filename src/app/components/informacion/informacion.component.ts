@@ -19,7 +19,9 @@ export class InformacionComponent implements OnInit {
   longitud: number;
   variable = false;
 
-  constructor( private activatedRoute: ActivatedRoute, public _ts: TiemposService, public db: AngularFireDatabase ) {
+  constructor( private activatedRoute: ActivatedRoute,
+               public _ts: TiemposService,
+               public db: AngularFireDatabase ) {
     this.activatedRoute.params.subscribe( id => {
       this.index = id['i'];
       console.log(id);
@@ -32,22 +34,10 @@ export class InformacionComponent implements OnInit {
         console.log(this.id);
         console.log(this.latitud);
         console.log(this.longitud);
+        // _ts.ejecuta2(this.latitud, this.longitud);
         });
   }
     ngOnInit() {
-      setTimeout(() => {
-        this.ejecutar();
-      }, 2000);
-    }
-    ejecutar() {
-      console.log('latitud despues del foreach', this.latitud);
-      if ( this.latitud === 20.8742161 ) {
-        this.variable = true;
-        this._ts.incrementarContador(this.variable);
-        } else {
-          this.variable = false;
-          this._ts.getHoraSalida( this.variable );
-        }
     }
   }
 
