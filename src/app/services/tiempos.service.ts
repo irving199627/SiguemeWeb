@@ -7,6 +7,8 @@ import { Observable } from 'rxjs/Observable';
 export class TiemposService {
 
   // info;
+  intervalo;
+  datos;
   dlng;
   dlat;
   a;
@@ -16,6 +18,9 @@ export class TiemposService {
   dentroTaller: boolean;
   min = 0;
   seg = 0;
+  hor = 0;
+  ide;
+  tiempo;
   taller;
   constructor( private activatedRoute: ActivatedRoute,
                public db: AngularFireDatabase ) {
@@ -37,34 +42,47 @@ export class TiemposService {
 
     this.d = 6378137 * Math.acos( Math.cos(Lat1) * Math.cos(Lat2) * Math.cos(Lon2 - Lon1) +
   Math.sin(Lat1) * Math.sin(Lat2));
-    // console.log( 'la distancia entre p1 y p2', this.d);
+    console.log( 'la distancia entre p1 y p2', this.d);
     if (this.d <= radio) {
       this.dentroTaller = true;
+      // console.log(this.dentroTaller);
     } else {
       this.dentroTaller = false;
     }
-    // console.log(this.dentroTaller);
-    // console.log(index);
-
-    // if (this.dentroTaller) {
-    //   setInterval(() => {
-    //     this.seg += 1;
-    //   if ( this.seg === 60 ) {
-    //     this.min += 1;
-    //     this.seg = 0;
-    //   }
-    //   console.log(id + ' ' + this.min + ':' + this.seg);
-    //   }, 1000);
-    // }
     const items = this.db.object(`dispositivo/ATS/${ index }`);
     items.update({ taller: this.dentroTaller });
 
-    const prueba = this.db.list(`dispositivo/ATS/${index}`, ref => ref.orderByValue().equalTo(true)).valueChanges();
-    prueba.subscribe( xd => {
-      for (let i = 0; i < xd.length; i++) {
-        console.log(xd[i]);
+    // items.valueChanges().forEach(element => {
+    //   console.log('elemento', element);
+    // });
+    switch (id) {
+      case 'ato':
+      items.valueChanges().forEach( elemento => {
+        this.dentroTaller = elemento.taller;
+        console.log(elemento);
+      });
+      if (this.dentroTaller === true) {
+       this.intervalo = setInterval(() => {
+          this.seg += 1;
+          if (this.seg === 60) {
+            this.seg = 0;
+            this.min += 1;
+          }
+          // console.log('tiempo' + this.min + ':' + this.seg );
+          this.tiempo = this.min + ':' + this.seg;
+          items.update({ horasTaller: this.tiempo });
+        }, 1000);
+      } else {
+        clearInterval(this.intervalo);
+        console.log(this.tiempo);
       }
-    });
+      break;
+    }
+
+    // const prueba = this.db.list(`dispositivo/ATS/${index}`, ref => ref.orderByValue().equalTo(true)).valueChanges();
+    // prueba.forEach(element => {
+    //   console.log(element);
+    // });
   }
 
   obtenerDistancia(autobus, lat, long, rad) {
@@ -73,7 +91,10 @@ export class TiemposService {
       this.objeto = this.db.object(`dispositivo/ATS/${index}`).valueChanges();
       this.objeto.forEach(datos => {
         // console.log(datos.lat);
-        this.getDistancia(datos.lat, datos.lng, lat, long, rad, datos.id, index);
+        this.datos = datos;
+      });
+      setTimeout(() => {
+        this.getDistancia(this.datos.lat, this.datos.lng, lat, long, rad, this.datos.id, index);
       });
     }
   }
