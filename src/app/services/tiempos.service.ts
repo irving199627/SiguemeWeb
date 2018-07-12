@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 export class TiemposService {
 
   // info;
+  index;
   intervalo;
   datos;
   dlng;
@@ -15,19 +16,19 @@ export class TiemposService {
   c;
   d;
   objeto: Observable<any>;
+  elemento: Observable<any>;
   dentroTaller: boolean;
   min = 0;
   seg = 0;
   hor = 0;
   ide;
-  tiempo;
   taller;
   constructor( private activatedRoute: ActivatedRoute,
                public db: AngularFireDatabase ) {
   }
 
   ejecuta( autobus ) {
-    // console.log(autobus);
+
   }
   rad(x) {
     return x * (Math.PI / 180 );
@@ -39,9 +40,9 @@ export class TiemposService {
     const Lon1 = lon1 * Math.PI / 180;
     const Lat2 = lat2 * Math.PI / 180;
     const Lon2 = lon2 * Math.PI / 180;
-
     this.d = 6378137 * Math.acos( Math.cos(Lat1) * Math.cos(Lat2) * Math.cos(Lon2 - Lon1) +
-  Math.sin(Lat1) * Math.sin(Lat2));
+            Math.sin(Lat1) * Math.sin(Lat2));
+
     console.log( 'la distancia entre p1 y p2', this.d);
     if (this.d <= radio) {
       this.dentroTaller = true;
@@ -49,52 +50,44 @@ export class TiemposService {
     } else {
       this.dentroTaller = false;
     }
-    const items = this.db.object(`dispositivo/ATS/${ index }`);
-    items.update({ taller: this.dentroTaller });
+  const items = this.db.object(`dispositivo/ATS/${ index }`);
+  items.update({ taller: this.dentroTaller });
 
-    // items.valueChanges().forEach(element => {
-    //   console.log('elemento', element);
-    // });
     switch (id) {
       case 'ato':
-      items.valueChanges().forEach( elemento => {
+      this.elemento = this.db.object(`dispositivo/ATS/${ index }`).valueChanges();
+      this.elemento.forEach( elemento => {
         this.dentroTaller = elemento.taller;
-        console.log(elemento);
       });
       if (this.dentroTaller === true) {
-       this.intervalo = setInterval(() => {
-          this.seg += 1;
-          if (this.seg === 60) {
-            this.seg = 0;
-            this.min += 1;
-          }
-          // console.log('tiempo' + this.min + ':' + this.seg );
-          this.tiempo = this.min + ':' + this.seg;
-          items.update({ horasTaller: this.tiempo });
-        }, 1000);
+        const date = new Date();
+        let tiempo;
+        tiempo = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+        // console.log(this.dentroTaller, tiempo);
+        console.log(this.dentroTaller, this.obtenerTiempo());
       } else {
-        clearInterval(this.intervalo);
-        console.log(this.tiempo);
+        const tiempo = new Date();
+        let tiempoSalida;
+        tiempoSalida = tiempo.getHours() + ':' + tiempo.getMinutes() + ':' + tiempo.getSeconds();
+        // console.log(this.dentroTaller, tiempoSalida);
+        console.log(this.dentroTaller, this.obtenerTiempo());
       }
       break;
     }
+  }
 
-    // const prueba = this.db.list(`dispositivo/ATS/${index}`, ref => ref.orderByValue().equalTo(true)).valueChanges();
-    // prueba.forEach(element => {
-    //   console.log(element);
-    // });
+  obtenerTiempo() {
+    const time = new Date();
+    return time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
   }
 
   obtenerDistancia(autobus, lat, long, rad) {
     for (let index = 0; index < autobus.length; index++) {
-      // console.log(autobus[index], index);
       this.objeto = this.db.object(`dispositivo/ATS/${index}`).valueChanges();
       this.objeto.forEach(datos => {
-        // console.log(datos.lat);
+        this.index = index;
         this.datos = datos;
-      });
-      setTimeout(() => {
-        this.getDistancia(this.datos.lat, this.datos.lng, lat, long, rad, this.datos.id, index);
+          this.getDistancia(this.datos.lat, this.datos.lng, lat, long, rad, this.datos.id, this.index);
       });
     }
   }
