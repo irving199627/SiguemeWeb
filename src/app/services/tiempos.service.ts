@@ -60,16 +60,8 @@ export class TiemposService {
         this.dentroTaller = elemento.taller;
       });
       if (this.dentroTaller === true) {
-        const date = new Date();
-        let tiempo;
-        tiempo = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
-        // console.log(this.dentroTaller, tiempo);
         console.log(this.dentroTaller, this.obtenerTiempo());
       } else {
-        const tiempo = new Date();
-        let tiempoSalida;
-        tiempoSalida = tiempo.getHours() + ':' + tiempo.getMinutes() + ':' + tiempo.getSeconds();
-        // console.log(this.dentroTaller, tiempoSalida);
         console.log(this.dentroTaller, this.obtenerTiempo());
       }
       break;

@@ -1,5 +1,12 @@
 <div class="container">
-    <h2>{{ id }}</h2>
-    <p>latitud: {{ latitud }}</p>
-    <p>Longitud: {{ longitud }}</p>
+    <h1 class="center">Gráfica</h1>
+    <div class="col-md-6">
+        <div class="input-group mb-3">
+            <input type="date" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" #fecha>
+            <div class="input-group-append">
+                <button class="btn btn-outline-info" type="button" id="button-addon2" (click)="filtrar( fecha.value )">Filtrar</button>
+            </div>
+        </div>
+    </div>
+    <h1 *ngIf="variable">Lo siento, no pudimos hacerlo :c,<br> El siguiente Semestre con más calma :c</h1>
 </div>

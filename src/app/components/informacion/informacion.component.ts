@@ -14,6 +14,7 @@ export class InformacionComponent implements OnInit {
   index: number;
   contador = 0;
   items: Observable<any>;
+  filtrarPor;
   // info;
   latitud: number;
   longitud: number;
@@ -36,6 +37,12 @@ export class InformacionComponent implements OnInit {
         console.log(this.longitud);
         // _ts.ejecuta2(this.latitud, this.longitud);
         });
+  }
+
+    filtrar( filtro ) {
+    this.variable = !this.variable;
+    this.filtrarPor = filtro;
+    console.log(this.filtrarPor;
   }
     ngOnInit() {
     }
