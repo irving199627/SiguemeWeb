@@ -43,7 +43,7 @@ export class TiemposService {
     this.d = 6378137 * Math.acos( Math.cos(Lat1) * Math.cos(Lat2) * Math.cos(Lon2 - Lon1) +
             Math.sin(Lat1) * Math.sin(Lat2));
 
-    console.log( 'la distancia entre p1 y p2', this.d);
+    // console.log( 'la distancia entre p1 y p2', this.d);
     if (this.d <= radio) {
       this.dentroTaller = true;
       // console.log(this.dentroTaller);
@@ -59,18 +59,50 @@ export class TiemposService {
       this.elemento.forEach( elemento => {
         this.dentroTaller = elemento.taller;
       });
+      const tiempo = this.db.object(`dispositivo/ATS/${ index }/${ this.obtenerFecha()}`);
       if (this.dentroTaller === true) {
-        console.log(this.dentroTaller, this.obtenerTiempo());
+        tiempo.update({ horasDentroTaller: this.obtenerHoras(),
+                        minutosDentroTaller: this.obtenerMinutos(),
+                        segundosDentroTaller: this.obtenerSeg(),
+                        horaEntradaTaller: this.obtenerTiempo() });
+
       } else {
-        console.log(this.dentroTaller, this.obtenerTiempo());
+        tiempo.update({ horasSalidaTaller: this.obtenerHoras(),
+          minutosSalidaTaller: this.obtenerMinutos(),
+          segundosSalidaTaller: this.obtenerSeg(),
+          horaSalidaTaller: this.obtenerTiempo() });
       }
       break;
     }
   }
 
-  obtenerTiempo() {
+  obtenerTiempo(){
     const time = new Date();
     return time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds();
+  }
+
+  obtenerHoras() {
+    const time = new Date();
+    return time.getHours();
+  }
+  obtenerMinutos() {
+    const time = new Date();
+    return time.getMinutes();
+  }
+  obtenerSeg() {
+    const time = new Date();
+    return time.getSeconds() + '';
+  }
+
+  obtenerFecha() {
+    const fecha = new Date();
+    let mes;
+    if ( fecha.getMonth() + 1 < 10 ) {
+      mes = '0' + (fecha.getMonth() + 1);
+    } else {
+      mes = (fecha.getMonth() + 1);
+    }
+    return fecha.getFullYear() + '-' + mes + '-' + fecha.getDate();
   }
 
   obtenerDistancia(autobus, lat, long, rad) {

@@ -42,7 +42,7 @@ export class InformacionComponent implements OnInit {
     filtrar( filtro ) {
     this.variable = !this.variable;
     this.filtrarPor = filtro;
-    console.log(this.filtrarPor;
+    console.log(this.filtrarPor);
   }
     ngOnInit() {
     }
