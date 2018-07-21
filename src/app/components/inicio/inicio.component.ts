@@ -25,14 +25,12 @@ export class InicioComponent implements OnInit {
   itemsRef: Observable<any>;
   variable = false;
 
-  constructor(// public _as: AutobusesService,
+  constructor(
               // creamos una instancia de la clase AngularFireDatabase
               public db: AngularFireDatabase,
               public _ts: TiemposService ) {
                 // al ejecutar el metodo en el contructor este se ejecuta cuando la pagina se carga
               this.datosAutbus();
-              // this._ts.getDistancia(this.latitud, this.longitud, this.lat1, this.lng1, this.radio);
-              // this._ts.obtenerDistancia(this.itemsRef, this.latitudTaller, this.longitudTaller);
             }
 
   ngOnInit() {
@@ -48,10 +46,6 @@ export class InicioComponent implements OnInit {
                 // almacenamos los datos de cada autobus almacenado en la base de datos
                 this.autobuses = data;
 
-                for (let index = 0; index < this.autobuses.length; index++) {
-                  // this._ts.ejecuta(this.autobuses);
-                }
-                this._ts.obtenerDistancia(this.autobuses, this.latitudTaller, this.longitudTaller, this.radioTaller);
                 // si la variable init es falsa, obtenemos los datos del primer autobus
                 // con el indice cero y cambiamos el valor de init a true
                 if ( !this.init ) {

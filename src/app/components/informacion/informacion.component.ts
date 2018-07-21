@@ -10,14 +10,20 @@ import { AngularFireDatabase } from 'angularfire2/database';
   styles: []
 })
 export class InformacionComponent implements OnInit {
+
+  lat;
+  lng;
   id;
+  info;
   index: number;
-  contador = 0;
   items: Observable<any>;
+  datos: any[] = [];
+  timpoTaller;
   filtrarPor;
-  // info;
-  latitud: number;
-  longitud: number;
+  minutosDentro;
+  minutosFuera;
+
+
   variable = false;
 
   constructor( private activatedRoute: ActivatedRoute,
@@ -25,24 +31,13 @@ export class InformacionComponent implements OnInit {
                public db: AngularFireDatabase ) {
     this.activatedRoute.params.subscribe( id => {
       this.index = id['i'];
-      console.log(id);
     });
-    this.items = this.db.list(`dispositivo/ATS/${this.index}`).valueChanges();
-    this.items.forEach(objetos => {
-        this.latitud = objetos[1];
-        this.longitud = objetos[2];
-        this.id = objetos[0];
-        console.log(this.id);
-        console.log(this.latitud);
-        console.log(this.longitud);
-        // _ts.ejecuta2(this.latitud, this.longitud);
-        });
-  }
-
-    filtrar( filtro ) {
-    this.variable = !this.variable;
-    this.filtrarPor = filtro;
-    console.log(this.filtrarPor);
+    this.items = this.db.list(`dispositivo/ATS/${ this.index }`).valueChanges();
+    this.items.forEach( datos => {
+      this.lat = datos[1];
+      this.lng = datos[2];
+      this.id = datos[0];
+    });
   }
     ngOnInit() {
     }
