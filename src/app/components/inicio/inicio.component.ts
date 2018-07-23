@@ -25,6 +25,52 @@ export class InicioComponent implements OnInit {
   itemsRef: Observable<any>;
   variable = false;
 
+  pathIsla = [
+    {lat: 20.945623, lng: -89.657455},
+    {lat: 20.945468, lng: -89.657362},
+    {lat: 20.945536, lng: -89.657230},
+    {lat: 20.945686, lng: -89.657321},
+    {lat: 20.945623, lng: -89.657455}
+  ];
+
+  pathRecepcion = [
+    {lat: 20.946260, lng: -89.657159},
+    {lat: 20.946182, lng: -89.656890},
+    {lat: 20.945994, lng: -89.656946},
+    {lat: 20.946075, lng: -89.657226},
+    {lat: 20.946260, lng: -89.657159}
+  ];
+
+  pathPre = [
+    {lat: 20.945894, lng: -89.657389},
+    {lat: 20.945633, lng: -89.657872},
+    {lat: 20.945464, lng: -89.657796},
+    {lat: 20.945724, lng: -89.657295},
+    {lat: 20.945894, lng: -89.657389}
+  ];
+
+  pathDetallado = [
+    {lat: 20.945646, lng: -89.658308},
+    {lat: 20.945531, lng: -89.658349},
+    {lat: 20.945484, lng: -89.658136},
+    {lat: 20.945621, lng: -89.658114},
+    {lat: 20.945646, lng: -89.658308}
+  ];
+  pathImg = [
+    {lat: 20.945657, lng: -89.658490},
+    {lat: 20.945576, lng: -89.658520},
+    {lat: 20.945678, lng: -89.658788},
+    {lat: 20.945742, lng: -89.658751},
+    {lat: 20.945657, lng: -89.658490}
+  ];
+
+  pathListos = [
+    {lat: 20.945616, lng: -89.659190},
+    {lat: 20.945724, lng: -89.659103},
+    {lat: 20.946055, lng: -89.659837},
+    {lat: 20.945936, lng: -89.659915},
+    {lat: 20.945616, lng: -89.659190}
+  ];
   constructor(
               // creamos una instancia de la clase AngularFireDatabase
               public db: AngularFireDatabase,

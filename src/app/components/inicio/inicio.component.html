@@ -8,16 +8,56 @@
         <!-- the component as the initial center of the map: -->
         <agm-map [latitude]="lat" [longitude]="lng" [zoom]="20" [mapTypeId]="'hybrid'">
             <agm-marker *ngFor="let autobus of autobuses" [latitude]="autobus.lat" [longitude]="autobus.lng" label="{{autobus.id}}"></agm-marker>
-            <!-- _<agm-polygon [fillColor]="'#FFFFFF'" [visible]="true" fillOpacity="0.1" [paths]="pathTaller" [strokeColor]="'#FFFFFF'"></agm-polygon>
-            <agm-polygon [fillColor]="'#ffff00'" fillOpacity="0.1" [visible]="true" [paths]="pathRecepcion" [strokeColor]="'#ffff00'"></agm-polygon>
-            <agm-polygon [fillColor]="'#26df1f'" fillOpacity="0.1" [visible]="true" [paths]="pathIsla" [strokeColor]="'#26df1f'"></agm-polygon>
-            <agm-polygon [fillColor]="'#1f1fdf'" fillOpacity="0.1" [visible]="true" [paths]="pathListos" [strokeColor]="'#1f1fdf'"></agm-polygon>
-            <agm-polygon [fillColor]="'#000000'" fillOpacity="0.1" [visible]="true" [paths]="pathPre" [strokeColor]="'#000000'"></agm-polygon>
-            <agm-polygon [fillColor]="'#F6B23D'" fillOpacity="0.1" [visible]="true" [paths]="pathDetallado" [strokeColor]="'#F6B23D'"></agm-polygon>
-            <agm-polygon [fillColor]="'#e99ced'" fillOpacity="0.1" [visible]="true" [paths]="pathImg" [strokeColor]="'#e99ced'"></agm-polygon> -->
-            <agm-circle [latitude]="latitudTaller" [longitude]="longitudTaller" [radius]="radioTaller"></agm-circle>
+            <!-- _<agm-polygon [fillColor]="'#FFFFFF'" [visible]="true" fillOpacity="0.1" [paths]="pathTaller" [strokeColor]="'#FFFFFF'"></agm-polygon> -->
+            <agm-polygon [fillColor]="'#f48f4d'" fillOpacity="0.3" [visible]="true" [paths]="pathRecepcion" [strokeColor]="'#f48f4d'"></agm-polygon>
+            <agm-polygon [fillColor]="'#ff2017'" fillOpacity="0.3" [visible]="true" [paths]="pathIsla" [strokeColor]="'#ff2017'"></agm-polygon>
+            <agm-polygon [fillColor]="'#fefa50'" fillOpacity="0.3" [visible]="true" [paths]="pathListos" [strokeColor]="'#fefa50'"></agm-polygon>
+            <agm-polygon [fillColor]="'#00bfef'" fillOpacity="0.3" [visible]="true" [paths]="pathPre" [strokeColor]="'#00bfef'"></agm-polygon>
+            <agm-polygon [fillColor]="'#884aaa'" fillOpacity="0.3" [visible]="true" [paths]="pathDetallado" [strokeColor]="'#884aaa'"></agm-polygon>
+            <agm-polygon [fillColor]="'#00b96c'" fillOpacity="0.3" [visible]="true" [paths]="pathImg" [strokeColor]="'#00b96c'"></agm-polygon>
+            <!-- <agm-circle [latitude]="latitudTaller" [longitude]="longitudTaller" [radius]="radioTaller"></agm-circle> -->
 
         </agm-map>
+        <div class="container">
+
+            <table class="table table-bordered table-sm">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="colores" id="recepcion"></div>
+                        </td>
+                        <td> Recepción </td>
+
+                        <td>
+                            <div class="colores" id="isla"></div>
+                        </td>
+                        <td> Isla </td>
+
+                        <td>
+                            <div class="colores" id="listos"></div>
+                        </td>
+                        <td> Listos </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="colores" id="pre"></div>
+                        </td>
+                        <td> Prelavado </td>
+
+                        <td>
+                            <div class="colores" id="det"></div>
+                        </td>
+                        <td> Detallado </td>
+
+                        <td>
+                            <div class="colores" id="imagen"></div>
+                        </td>
+                        <td> Imagen </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="col-4">
         <h3>Autobuses</h3>

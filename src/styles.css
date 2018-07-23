@@ -11,3 +11,39 @@ agm-map {
 .cursor {
     cursor: pointer;
 }
+
+.colores {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+#recepcion {
+    border: 1px #f48f4d solid;
+    background: #f48f4d;
+}
+
+#isla {
+    border: 1px #ff2017 solid;
+    background: #ff2017;
+}
+
+#listos {
+    border: 1px #fefa50 solid;
+    background: #fefa50;
+}
+
+#pre {
+    border: 1px #00bfef solid;
+    background: #00bfef;
+}
+
+#det {
+    border: 1px #884aaa solid;
+    background: #884aaa;
+}
+
+#imagen {
+    border: 1px #00b96c solid;
+    background: #00b96c;
+}
